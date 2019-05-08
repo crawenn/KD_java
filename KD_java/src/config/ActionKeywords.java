@@ -19,7 +19,7 @@ public class ActionKeywords {
 	public static void navigate()
 	{
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("http://store.demoqa.com");
+		driver.get(Constants.URL);
 	}
 	
 	public static void click_MyAccount()
@@ -29,12 +29,12 @@ public class ActionKeywords {
 	
 	public static void input_Username()
 	{
-		driver.findElement(By.id("log")).sendKeys("testuser_3");
+		driver.findElement(By.id("log")).sendKeys(Constants.UserName);
 	}
 	
 	public static void input_Password()
 	{
-		driver.findElement(By.id("pwd")).sendKeys("Test@123");
+		driver.findElement(By.id("pwd")).sendKeys(Constants.Password);
 	}
 	
 	public static void click_Login()
