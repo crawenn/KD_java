@@ -17,13 +17,18 @@ import utility.XLUtils;
 
 public class driverScript {
 	
-//	private static WebDriver driver = null;
+	private static WebDriver driver = null;
 	
 	public static Properties OR;
 	public static ActionKeywords actionKeywords;
 	public static String sActionKeyword;
 	public static String sPageObject;
 	public static Method method[];
+	
+	public static int iTestStep;
+	public static int iTestLastStep;
+	public static String sTestCaseID;
+	public static String sRunMode;
 	
 	public void DriverScript() throws NoSuchMethodException, SecurityException
 	{
@@ -32,24 +37,42 @@ public class driverScript {
 	}
 
 	public static void main(String[] args) throws Exception
-	{			
-		String xlPath = Constants.testDataPath;
-		XLUtils.setExcelFile(xlPath.toString(), Constants.Sheet_TestSteps);
+	{
+		XLUtils.setExcelFile(Constants.testDataPath);
 		
 		String ORPath = Constants.ORPath;
 		
 		FileInputStream fs = new FileInputStream(ORPath);
-		
 		OR = new Properties(System.getProperties());
 		OR.load(fs);
 		
-		//hard coded values for now, this loop is reading the values of col 3 (Action Keyword) row by row
-		for (int iRow = 1; iRow <= 9; iRow++)
+		driverScript startEngine = new driverScript();
+		startEngine.execute_TestCase();
+	}
+	
+	private void execute_TestCase() throws Exception
+	{
+		int iTotalTestCases = XLUtils.getRowCount(Constants.Sheet_TestCases);
+		
+		for (int iTestCase = 1; iTestCase <= iTotalTestCases; iTestCase++)
 		{
-			sActionKeyword = XLUtils.getCellData(iRow, Constants.Col_ActionKeyword);
-			sPageObject = XLUtils.getCellData(iRow, Constants.Col_PageObject);
+			sTestCaseID = XLUtils.getCellData(iTestCase,  Constants.Col_TestCaseID, Constants.Sheet_TestCases);
 			
-			execute_Actions();			
+			sRunMode = XLUtils.getCellData(iTestCase, Constants.Col_Runmode, Constants.Sheet_TestCases);
+			
+			if (sRunMode.equals("Yes"))
+			{
+				iTestStep = XLUtils.getRowContains(sTestCaseID, Constants.Col_TestCaseID, Constants.Sheet_TestSteps);
+				
+				iTestLastStep = XLUtils.getTestStepsCount(Constants.Sheet_TestSteps, sTestCaseID, iTestStep);
+				
+				for ( ; iTestStep <= iTestLastStep; iTestStep++)
+				{
+					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+					execute_Actions();
+				}
+			}
 		}
 	}
 	

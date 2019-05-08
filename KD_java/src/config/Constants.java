@@ -13,10 +13,12 @@ public class Constants
 	
 	public static final int Col_TestCaseID = 0;
 	public static final int Col_TestScenarioID = 1;
+	public static final int Col_Runmode = 2;
 	public static final int Col_PageObject = 3;
 	public static final int Col_ActionKeyword = 4;
 	
 	public static final String Sheet_TestSteps = "Test Steps";
+	public static final String Sheet_TestCases = "Test Cases";
 	
 	public static final String UserName = "testuser_3";
 	public static final String Password = "Test@123";
