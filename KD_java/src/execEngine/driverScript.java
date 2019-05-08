@@ -1,6 +1,8 @@
 package execEngine;
 
 import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,6 +15,7 @@ import java.util.Properties;
 
 import config.ActionKeywords;
 import config.Constants;
+import utility.Log;
 import utility.XLUtils;
 
 public class driverScript {
@@ -40,6 +43,7 @@ public class driverScript {
 	{
 		XLUtils.setExcelFile(Constants.testDataPath);
 		
+		DOMConfigurator.configure("log4j.xml");
 		String ORPath = Constants.ORPath;
 		
 		FileInputStream fs = new FileInputStream(ORPath);
@@ -63,8 +67,8 @@ public class driverScript {
 			if (sRunMode.equals("Yes"))
 			{
 				iTestStep = XLUtils.getRowContains(sTestCaseID, Constants.Col_TestCaseID, Constants.Sheet_TestSteps);
-				
 				iTestLastStep = XLUtils.getTestStepsCount(Constants.Sheet_TestSteps, sTestCaseID, iTestStep);
+				Log.startTestCase(sTestCaseID);
 				
 				for ( ; iTestStep <= iTestLastStep; iTestStep++)
 				{
@@ -72,6 +76,8 @@ public class driverScript {
 					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 					execute_Actions();
 				}
+				
+				Log.endTestCase(sTestCaseID);
 			}
 		}
 	}
