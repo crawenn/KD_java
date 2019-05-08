@@ -1,9 +1,5 @@
 package config;
 
-import java.io.FileInputStream;
-
-import utility.XLUtils;
-
 public class Constants 
 {
 	public static final String URL = "http://store.demoqa.com";

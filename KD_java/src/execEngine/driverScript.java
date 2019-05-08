@@ -7,8 +7,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.File;
-import java.nio.file.*;
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;

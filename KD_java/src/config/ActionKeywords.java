@@ -5,11 +5,10 @@ import static execEngine.driverScript.OR;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import utility.Log;
-
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ActionKeywords {
 	
@@ -46,22 +45,12 @@ public class ActionKeywords {
 		driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.Password);
 	}
 	
-	/*public static void click_Login(String object)
-	{
-		driver.findElement(By.xpath(OR.getProperty(object))).click();
-	}*/
-	
 	public static void waitFor(String object) throws Exception
 	{
 		Log.info("Waiting 5 seconds");
 		Thread.sleep(5000);
 	}
-	
-	/*public static void click_Logout()
-	{
-		driver.findElement(By.xpath(".//*[@id='account_logout']/a")).click();
-	}*/
-	
+		
 	public static void closeBrowser()
 	{
 		Log.info("Closing browser");

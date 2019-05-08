@@ -1,7 +1,6 @@
 package utility;
 
 import java.io.FileInputStream;
-import java.nio.file.Path;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,7 +14,6 @@ public class XLUtils
 	private static XSSFWorkbook xlWB;
 	private static XSSFCell xlCell;
 	
-	//method to set file path and open it
 	public static void setExcelFile(String xlPath) throws Exception
 	{
 		FileInputStream xlFile = new FileInputStream(xlPath);
