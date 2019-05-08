@@ -37,6 +37,11 @@ public class ActionKeywords {
 		driver.findElement(By.id("pwd")).sendKeys("Test@123");
 	}
 	
+	public static void click_Login()
+	{
+		driver.findElement(By.id("login")).click();
+	}
+	
 	public static void waitFor() throws Exception
 	{
 		Thread.sleep(5000);
