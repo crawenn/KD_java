@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.nio.file.*;
+import java.lang.reflect.Method;
 
 import config.ActionKeywords;
 import utility.XLUtils;
@@ -14,6 +15,16 @@ import utility.XLUtils;
 public class driverScript {
 	
 //	private static WebDriver driver = null;
+	
+	public static ActionKeywords actionKeywords;
+	public static String sActionKeyword;
+	public static Method method[];
+	
+	public void DriverScript() throws NoSuchMethodException, SecurityException
+	{
+		actionKeywords = new ActionKeywords();
+		method = actionKeywords.getClass().getMethods();
+	}
 
 	public static void main(String[] args) throws Exception
 	{			
@@ -23,45 +34,20 @@ public class driverScript {
 		//hard coded values for now, this loop is reading the values of col 3 (Action Keyword) row by row
 		for (int iRow = 1; iRow <= 9; iRow++)
 		{
-			String sActionKeyword = XLUtils.getCellData(iRow, 3);
+			sActionKeyword = XLUtils.getCellData(iRow, 3);
 			
-			//value comparison of excel cells
-			
-			if (sActionKeyword.equals("openBrowser"))
+			execute_Actions();			
+		}
+	}
+	
+	public static void execute_Actions() throws Exception
+	{
+		for (int i = 0; i < method.length; i++)
+		{
+			if (method[i].getName().equals(sActionKeyword))
 			{
-				ActionKeywords.openBrowser();
-			}
-			else if (sActionKeyword.equals("navigate"))
-			{
-				ActionKeywords.navigate();
-			}
-			else if (sActionKeyword.equals("click_MyAccount"))
-			{
-				ActionKeywords.click_MyAccount();
-			}
-			else if (sActionKeyword.equals("input_Username"))
-			{
-				ActionKeywords.input_Username();
-			}
-			else if (sActionKeyword.equals("input_Password"))
-			{
-				ActionKeywords.input_Password();
-			}
-			else if (sActionKeyword.equals("click_Login"))
-			{
-				ActionKeywords.click_Login();
-			}
-			else if (sActionKeyword.equals("waitFor"))
-			{
-				ActionKeywords.waitFor();
-			}
-			else if (sActionKeyword.equals("click_Logout"))
-			{
-				ActionKeywords.click_Logout();
-			}
-			else if (sActionKeyword.equals("closwBrowser"))
-			{
-				ActionKeywords.closeBrowser();
+				method[i].invoke(actionKeywords);
+				break;
 			}
 		}
 	}
