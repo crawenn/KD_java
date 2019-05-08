@@ -1,7 +1,5 @@
 package execEngine;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
