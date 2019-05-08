@@ -29,6 +29,8 @@ public class driverScript {
 	public static String sTestCaseID;
 	public static String sRunMode;
 	
+	public static boolean bResult;
+	
 	public void DriverScript() throws NoSuchMethodException, SecurityException
 	{
 		actionKeywords = new ActionKeywords();

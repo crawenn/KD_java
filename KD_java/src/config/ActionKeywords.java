@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import execEngine.driverScript;
 import utility.Log;
 
 public class ActionKeywords {
@@ -16,44 +17,100 @@ public class ActionKeywords {
 	
 	public static void openBrowser(String object)
 	{
-		Log.info("Opening browser: ");
-		driver = new ChromeDriver();
+		try
+		{
+			Log.info("Opening browser: ");
+			driver = new ChromeDriver();
+		}
+		catch (Exception e)
+		{
+			Log.info("Could not open browser " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 	
 	public static void navigate(String object)
 	{
-		Log.info("Navigating to " + Constants.URL);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get(Constants.URL);
+		try
+		{
+			Log.info("Navigating to " + Constants.URL);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.get(Constants.URL);
+		}
+		catch (Exception e)
+		{
+			Log.error("Not able to navigate to " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 	
 	public static void click(String object)
 	{
-		Log.info("Clicking on element " + object);
-		driver.findElement(By.xpath(OR.getProperty(object))).click();
+		try
+		{
+			Log.info("Clicking on element " + object);
+			driver.findElement(By.xpath(OR.getProperty(object))).click();
+		}
+		catch (Exception e)
+		{
+			Log.error("Not able to click " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 	
 	public static void input_Username(String object)
 	{
-		Log.info("Entering username");
-		driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.UserName);
+		try
+		{
+			Log.info("Entering username");
+			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.UserName);
+		}
+		catch (Exception e)
+		{
+			Log.error("Not able to enter username: " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 	
 	public static void input_Password(String object)
 	{
-		Log.info("Entering password");
-		driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.Password);
+		try
+		{
+			Log.info("Entering password");
+			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.Password);
+		}
+		catch (Exception e)
+		{
+			Log.error("Not able to enter password: " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 	
 	public static void waitFor(String object) throws Exception
 	{
-		Log.info("Waiting 5 seconds");
-		Thread.sleep(5000);
+		try
+		{
+			Log.info("Waiting 5 seconds");
+			Thread.sleep(5000);
+		}
+		catch (Exception e)
+		{
+			Log.error("Could not wait: " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 		
 	public static void closeBrowser()
 	{
-		Log.info("Closing browser");
-		driver.quit();
+		try
+		{
+			Log.info("Closing browser");
+			driver.quit();
+		}
+		catch (Exception e)
+		{
+			Log.error("Not able to close browser: " + e.getMessage());
+			driverScript.bResult = false;
+		}
 	}
 }
