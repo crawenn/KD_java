@@ -40,7 +40,7 @@ public class driverScript {
 
 	public static void main(String[] args) throws Exception
 	{
-		XLUtils.setExcelFile(Constants.testDataPath);
+		XLUtils.setExcelFile();
 		
 		DOMConfigurator.configure("log4j.xml");
 		String ORPath = Constants.ORPath;
@@ -60,7 +60,7 @@ public class driverScript {
 		for (int iTestCase = 1; iTestCase <= iTotalTestCases; iTestCase++)
 		{
 			bResult = true;
-			sTestCaseID = XLUtils.getCellData(iTestCase,  Constants.Col_TestCaseID, Constants.Sheet_TestCases);
+			sTestCaseID = XLUtils.getCellData(iTestCase, Constants.Col_TestCaseID, Constants.Sheet_TestCases);
 			
 			sRunMode = XLUtils.getCellData(iTestCase, Constants.Col_Runmode, Constants.Sheet_TestCases);
 			
@@ -71,7 +71,7 @@ public class driverScript {
 				Log.startTestCase(sTestCaseID);
 				
 				bResult = true;
-				for ( ; iTestStep <= iTestLastStep; iTestStep++)
+				for (; iTestStep <= iTestLastStep; iTestStep++)
 				{
 					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
 					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);

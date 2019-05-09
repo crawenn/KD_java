@@ -20,12 +20,12 @@ public class XLUtils
 	private static XSSFCell xlCell;
 	private static XSSFRow xlRow;
 	
-	public static void setExcelFile(String xlPath) throws Exception
+	public static void setExcelFile() throws Exception
 	{
 		try
 		{
-		FileInputStream xlFile = new FileInputStream(xlPath);
-		xlWB = new XSSFWorkbook(xlFile);
+		//FileInputStream xlFile = new FileInputStream(Constants.testDataPath);
+		xlWB = new XSSFWorkbook(Constants.testDataPath);
 		}
 		catch (Exception e)
 		{
@@ -73,7 +73,7 @@ public class XLUtils
 		int iRowNum = 0;
 		try 
 		{
-			//xlWS = xlWB.getSheet(SheetName);
+			xlWS = xlWB.getSheet(SheetName);
 			int rowCount = XLUtils.getRowCount(SheetName);
 			
 			for (; iRowNum < rowCount; iRowNum++)
@@ -102,12 +102,12 @@ public class XLUtils
 				if (!sTestCaseID.equals(XLUtils.getCellData(i, Constants.Col_TestCaseID, SheetName)))
 				{
 					int number = i;
-					return number;
+					//return number;
 				}
 			}
 		
 			xlWS = xlWB.getSheet(SheetName);
-			int number = xlWS.getLastRowNum() + 1;
+			int number = xlWS.getLastRowNum()+1;
 			return number;
 		}
 		catch (Exception e)
@@ -118,7 +118,7 @@ public class XLUtils
 		}
 	}
 	
-	@SuppressWarnings("static-access")
+	//@SuppressWarnings("static-access")
 	public static void setCellData(String Result, int RowNum, int ColNum, String SheetName) throws Exception
 	{
 		try
