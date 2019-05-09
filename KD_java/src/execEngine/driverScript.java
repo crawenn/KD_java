@@ -73,7 +73,7 @@ public class driverScript {
 				bResult = true;
 				for ( ; iTestStep <= iTestLastStep; iTestStep++)
 				{
-					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
 					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 					sData = XLUtils.getCellData(iTestStep, Constants.Col_DataSet, Constants.Sheet_TestSteps);
 					execute_Actions();
