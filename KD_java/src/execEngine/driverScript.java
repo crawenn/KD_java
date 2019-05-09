@@ -108,7 +108,7 @@ public class driverScript {
 				else
 				{
 					XLUtils.setCellData(Constants.KEYWORD_FAIL, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);
-					ActionKeywords.closeBrowser();
+					ActionKeywords.closeBrowser("", "");
 					break;
 				}
 			}
