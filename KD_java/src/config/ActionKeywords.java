@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import execEngine.driverScript;
 import utility.Log;
@@ -15,12 +16,28 @@ public class ActionKeywords {
 	
 	public static WebDriver driver;
 	
-	public static void openBrowser(String object)
+	public static void openBrowser(String object, String data)
 	{
 		try
 		{
-			Log.info("Opening browser: ");
-			driver = new ChromeDriver();
+			if (data.equals("Mozilla"))
+			{
+				driver = new FirefoxDriver();
+				Log.info("Starting Mozilla Firefox");
+			}
+			else if (data.equals("Chrome"))
+			{
+				driver = new ChromeDriver();
+				Log.info("Starting Google Chrome");
+			}
+			else if (data.equals("IE"))
+			{
+				driver = new InternetExplorerDriver();
+				Log.info("Starting Internet Explorer");
+			}
+			
+			int implicitWaitTime = (10);
+			driver.manage().timeouts().implicitlyWait(implicitWaitTime, TimeUnit.SECONDS);
 		}
 		catch (Exception e)
 		{
@@ -29,7 +46,7 @@ public class ActionKeywords {
 		}
 	}
 	
-	public static void navigate(String object)
+	public static void navigate(String object, String data)
 	{
 		try
 		{
@@ -44,7 +61,7 @@ public class ActionKeywords {
 		}
 	}
 	
-	public static void click(String object)
+	public static void click(String object, String data)
 	{
 		try
 		{
@@ -58,35 +75,21 @@ public class ActionKeywords {
 		}
 	}
 	
-	public static void input_Username(String object)
+	public static void input(String object, String data)
 	{
 		try
 		{
-			Log.info("Entering username");
-			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.UserName);
+			Log.info("Entering text into: " + object);
+			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(data);
 		}
 		catch (Exception e)
 		{
-			Log.error("Not able to enter username: " + e.getMessage());
+			Log.error("Not able to input to " + object + ": " + e.getMessage());
 			driverScript.bResult = false;
 		}
-	}
+	}	
 	
-	public static void input_Password(String object)
-	{
-		try
-		{
-			Log.info("Entering password");
-			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(Constants.Password);
-		}
-		catch (Exception e)
-		{
-			Log.error("Not able to enter password: " + e.getMessage());
-			driverScript.bResult = false;
-		}
-	}
-	
-	public static void waitFor(String object) throws Exception
+	public static void waitFor(String object, String data) throws Exception
 	{
 		try
 		{
@@ -100,7 +103,7 @@ public class ActionKeywords {
 		}
 	}
 		
-	public static void closeBrowser()
+	public static void closeBrowser(String object, String data)
 	{
 		try
 		{
