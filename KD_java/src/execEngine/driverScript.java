@@ -28,6 +28,7 @@ public class driverScript {
 	public static int iTestLastStep;
 	public static String sTestCaseID;
 	public static String sRunMode;
+	public static String sData;
 	
 	public static boolean bResult;
 	
@@ -74,6 +75,7 @@ public class driverScript {
 				{
 					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+					sData = XLUtils.getCellData(iTestStep, Constants.Col_DataSet, Constants.Sheet_TestSteps);
 					execute_Actions();
 					
 					if (bResult == false)
@@ -99,7 +101,7 @@ public class driverScript {
 		{
 			if (method[i].getName().equals(sActionKeyword))
 			{
-				method[i].invoke(actionKeywords, sPageObject);
+				method[i].invoke(actionKeywords, sPageObject, sData);
 				if (bResult == true)
 				{
 					XLUtils.setCellData(Constants.KEYWORD_PASS, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);
