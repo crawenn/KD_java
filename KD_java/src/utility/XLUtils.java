@@ -67,34 +67,51 @@ public class XLUtils
 	
 	public static int getRowContains(String sTestCaseName, int colNum, String SheetName) throws Exception
 	{
-		int i;
-		xlWS = xlWB.getSheet(SheetName);
-		int rowCount = XLUtils.getRowCount(SheetName);
-		
-		for (i = 0; i < rowCount; i++)
+		int iRowNum = 0;
+		try 
 		{
-			if (XLUtils.getCellData(i, colNum, SheetName).equalsIgnoreCase(sTestCaseName))
+			//xlWS = xlWB.getSheet(SheetName);
+			int rowCount = XLUtils.getRowCount(SheetName);
+			
+			for (; iRowNum < rowCount; iRowNum++)
 			{
-				break;
+				if (XLUtils.getCellData(iRowNum, colNum, SheetName).equalsIgnoreCase(sTestCaseName))
+				{
+					break;
+				}
 			}
 		}
+		catch (Exception e)
+		{
+			Log.error("Class: XLUtils | Method: getRowContains | Exception description: " + e.getMessage());
+			driverScript.bResult = false;
+		}		
 		
-		return i;
+		return iRowNum;
 	}
 	
 	public static int getTestStepsCount(String SheetName, String sTestCaseID, int iTestCaseStart) throws Exception
 	{
-		for (int i = iTestCaseStart; i <= XLUtils.getRowCount(SheetName); i++)
+		try
 		{
-			if (!sTestCaseID.equals(XLUtils.getCellData(i, Constants.Col_TestCaseID, SheetName)))
+			for (int i = iTestCaseStart; i <= XLUtils.getRowCount(SheetName); i++)
 			{
-				int number = i;
-				return number;
+				if (!sTestCaseID.equals(XLUtils.getCellData(i, Constants.Col_TestCaseID, SheetName)))
+				{
+					int number = i;
+					return number;
+				}
 			}
-		}
 		
-		xlWS = xlWB.getSheet(SheetName);
-		int number = xlWS.getLastRowNum() + 1;
-		return number;
+			xlWS = xlWB.getSheet(SheetName);
+			int number = xlWS.getLastRowNum() + 1;
+			return number;
+		}
+		catch (Exception e)
+		{
+			Log.error("Class: XLUtils | Method: getTestStepsCount | Exception description: " + e.getMessage());
+			driverScript.bResult = false;
+			return 0;
+		}
 	}
 }

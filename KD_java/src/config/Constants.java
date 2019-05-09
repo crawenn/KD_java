@@ -13,9 +13,15 @@ public class Constants
 	public static final int Col_PageObject = 3;
 	public static final int Col_ActionKeyword = 4;
 	
+	public static final int Col_Result = 3;
+	public static final int Col_TestStepResult = 5;
+	
 	public static final String Sheet_TestSteps = "Test Steps";
 	public static final String Sheet_TestCases = "Test Cases";
 	
 	public static final String UserName = "testuser_3";
 	public static final String Password = "Test@123";
+	
+	public static final String KEYWORD_FAIL = "FAIL";
+	public static final String KEYWORD_PASS = "PASS"; 
 }
