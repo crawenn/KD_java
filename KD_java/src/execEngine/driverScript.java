@@ -58,6 +58,7 @@ public class driverScript {
 		
 		for (int iTestCase = 1; iTestCase <= iTotalTestCases; iTestCase++)
 		{
+			bResult = true;
 			sTestCaseID = XLUtils.getCellData(iTestCase,  Constants.Col_TestCaseID, Constants.Sheet_TestCases);
 			
 			sRunMode = XLUtils.getCellData(iTestCase, Constants.Col_Runmode, Constants.Sheet_TestCases);
@@ -68,14 +69,26 @@ public class driverScript {
 				iTestLastStep = XLUtils.getTestStepsCount(Constants.Sheet_TestSteps, sTestCaseID, iTestStep);
 				Log.startTestCase(sTestCaseID);
 				
+				bResult = true;
 				for ( ; iTestStep <= iTestLastStep; iTestStep++)
 				{
 					sActionKeyword = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 					sPageObject = XLUtils.getCellData(iTestStep, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 					execute_Actions();
+					
+					if (bResult == false)
+					{
+						XLUtils.setCellData(Constants.KEYWORD_FAIL, iTestCase, Constants.Col_Result, Constants.Sheet_TestCases);
+						Log.endTestCase(sTestCaseID);
+						break;
+					}
 				}
 				
-				Log.endTestCase(sTestCaseID);
+				if (bResult == true)
+				{
+					XLUtils.setCellData(Constants.KEYWORD_PASS, iTestCase, Constants.Col_Result, Constants.Sheet_TestCases);
+					Log.endTestCase(sTestCaseID);
+				}				
 			}
 		}
 	}
@@ -87,7 +100,17 @@ public class driverScript {
 			if (method[i].getName().equals(sActionKeyword))
 			{
 				method[i].invoke(actionKeywords, sPageObject);
-				break;
+				if (bResult == true)
+				{
+					XLUtils.setCellData(Constants.KEYWORD_PASS, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);
+					break;
+				}
+				else
+				{
+					XLUtils.setCellData(Constants.KEYWORD_FAIL, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);
+					ActionKeywords.closeBrowser();
+					break;
+				}
 			}
 		}
 	}

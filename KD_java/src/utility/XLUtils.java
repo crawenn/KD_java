@@ -1,11 +1,14 @@
 package utility;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import org.apache.poi.ss.usermodel.Row;
 
 import config.Constants;
 import execEngine.driverScript;
@@ -112,6 +115,37 @@ public class XLUtils
 			Log.error("Class: XLUtils | Method: getTestStepsCount | Exception description: " + e.getMessage());
 			driverScript.bResult = false;
 			return 0;
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void setCellData(String Result, int RowNum, int ColNum, String SheetName) throws Exception
+	{
+		try
+		{
+			xlWS = xlWB.getSheet(SheetName);
+			xlRow = xlWS.getRow(RowNum);
+			xlCell = xlRow.getCell(ColNum, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+		
+			if (xlCell == null)
+			{
+				xlCell = xlRow.createCell(ColNum);
+				xlCell.setCellValue(Result);
+			}
+			else
+			{
+				xlCell.setCellValue(Result);
+			}
+		
+			FileOutputStream fileOut = new FileOutputStream(Constants.testDataPath);
+			xlWB.write(fileOut);
+			fileOut.close();
+		
+			xlWB = new XSSFWorkbook(new FileInputStream(Constants.testDataPath));
+		}
+		catch (Exception e)
+		{
+			driverScript.bResult = false;
 		}
 	}
 }
