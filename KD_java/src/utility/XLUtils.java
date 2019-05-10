@@ -7,7 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
 import config.Constants;
@@ -40,14 +40,15 @@ public class XLUtils
 		{
 			xlWS = xlWB.getSheet(SheetName);
 			xlCell = xlWS.getRow(RowNum).getCell(ColNum);
-			String CellData = xlCell.getStringCellValue();
+			//String CellType = xlCell.getCellType().toString();
+			String CellData = xlCell.getStringCellValue().toString();
 			return CellData;
 		}
 		catch (Exception e)
 		{
-			Log.error("Class: XLUtils | Method: getCellData | Exception description: " + e.getMessage());
+			Log.error("Class: XLUtils | Method: getCellData | Exception description: " + e);
 			driverScript.bResult = false;
-			return "";
+			return "ez egy primitív errmsg";
 		}
 	}
 	
@@ -118,7 +119,7 @@ public class XLUtils
 		}
 	}
 	
-	//@SuppressWarnings("static-access")
+	@SuppressWarnings("static-access")
 	public static void setCellData(String Result, int RowNum, int ColNum, String SheetName) throws Exception
 	{
 		try

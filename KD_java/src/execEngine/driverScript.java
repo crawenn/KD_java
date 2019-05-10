@@ -93,9 +93,9 @@ public class driverScript {
 				}				
 			}
 		}
-	}
-	
-	public static void execute_Actions() throws Exception
+	}	
+
+	public void execute_Actions() throws Exception
 	{
 		for (int i = 0; i < method.length; i++)
 		{
@@ -113,6 +113,10 @@ public class driverScript {
 					ActionKeywords.closeBrowser("", "");
 					break;
 				}
+			}
+			else
+			{
+				System.out.println("ez egy primitív debug message" + i);
 			}
 		}
 	}
