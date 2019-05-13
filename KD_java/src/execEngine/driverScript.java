@@ -4,6 +4,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
@@ -95,9 +96,10 @@ public class driverScript {
 		}
 	}	
 
-	public void execute_Actions() throws Exception
+	public static void execute_Actions() throws Exception
 	{
-		for (int i = 0; i < method.length; i++)
+		int mlen = method.length;
+		for (int i = 0; i < mlen; i++)
 		{
 			if (method[i].getName().equals(sActionKeyword))
 			{
@@ -112,12 +114,10 @@ public class driverScript {
 					XLUtils.setCellData(Constants.KEYWORD_FAIL, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);
 					ActionKeywords.closeBrowser("", "");
 					break;
-				}
+				}			
 			}
-			else
-			{
-				System.out.println("ez egy primitív debug message" + i);
-			}
+						
+			Log.info("asd" + mlen);
 		}
 	}
 }

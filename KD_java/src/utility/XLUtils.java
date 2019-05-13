@@ -27,8 +27,8 @@ public class XLUtils
 	{
 		try
 		{
-		//FileInputStream xlFile = new FileInputStream(Constants.testDataPath);
-		xlWB = new XSSFWorkbook(Constants.testDataPath);
+		FileInputStream xlFile = new FileInputStream(Constants.testDataPath);
+		xlWB = new XSSFWorkbook(xlFile);
 		}
 		catch (Exception e)
 		{
@@ -43,50 +43,15 @@ public class XLUtils
 		{
 			xlWS = xlWB.getSheet(SheetName);
 			xlCell = xlWS.getRow(RowNum).getCell(ColNum);
-			//String CellType = xlCell.getCellType().toString();
-			String CellData = xlCell.getStringCellValue();//.toString();
-			/*XSSFRichTextString blankCellData = xlCell.getRichStringCellValue();
-			boolean boolCellData = xlCell.getBooleanCellValue();
-			String errorCellData = xlCell.getErrorCellString();
-			double numCellData = xlCell.getNumericCellValue();*/
-			
-			/*Object CellData;
-			String getCellType = xlCell.getCellType().toString();
-			
-			if (getCellType == "BOOLEAN")
-			{
-				CellData = xlCell.getBooleanCellValue();
-				return CellData;
-			}
-			else if (getCellType == "ERROR")
-			{
-				CellData = xlCell.getErrorCellString();
-				return CellData;
-			}
-			else if (getCellType == "NUMERIC")
-			{
-				CellData = xlCell.getNumericCellValue();
-				return CellData;
-			}
-			else if (getCellType == "STRING")
-			{
-				CellData = xlCell.getStringCellValue();
-				return CellData;
-			}
-			else
-			{
-				System.out.println("No cell type found");
-			}*/
-			
+			String CellData = xlCell.getStringCellValue();			
 			return CellData;
 		}
 		catch (Exception e)
 		{
 			Log.error("Class: XLUtils | Method: getCellData | Exception description: " + e);
 			driverScript.bResult = false;
-			return "ez egy primitív errmsg";
+			return "";
 		}
-		//return "";
 	}
 	
 	public static int getRowCount(String SheetName)
