@@ -37,20 +37,20 @@ public class XLUtils
 		}
 	}
 	
-	public static Object getCellData(int RowNum, int ColNum, String SheetName) throws Exception
+	public static String getCellData(int RowNum, int ColNum, String SheetName) throws Exception
 	{		
 		try
 		{
 			xlWS = xlWB.getSheet(SheetName);
 			xlCell = xlWS.getRow(RowNum).getCell(ColNum);
 			//String CellType = xlCell.getCellType().toString();
-			/*String stringCellData = xlCell.getStringCellValue();//.toString();
-			XSSFRichTextString blankCellData = xlCell.getRichStringCellValue();
+			String CellData = xlCell.getStringCellValue();//.toString();
+			/*XSSFRichTextString blankCellData = xlCell.getRichStringCellValue();
 			boolean boolCellData = xlCell.getBooleanCellValue();
 			String errorCellData = xlCell.getErrorCellString();
 			double numCellData = xlCell.getNumericCellValue();*/
 			
-			Object CellData;
+			/*Object CellData;
 			String getCellType = xlCell.getCellType().toString();
 			
 			if (getCellType == "BOOLEAN")
@@ -76,17 +76,17 @@ public class XLUtils
 			else
 			{
 				System.out.println("No cell type found");
-			}
+			}*/
 			
-			//return CellData;
+			return CellData;
 		}
 		catch (Exception e)
 		{
 			Log.error("Class: XLUtils | Method: getCellData | Exception description: " + e);
 			driverScript.bResult = false;
-			//return "ez egy primitív errmsg";
+			return "ez egy primitív errmsg";
 		}
-		return "";
+		//return "";
 	}
 	
 	public static int getRowCount(String SheetName)
