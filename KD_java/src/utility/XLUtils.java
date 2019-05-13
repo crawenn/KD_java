@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,6 +16,8 @@ import execEngine.driverScript;
 
 public class XLUtils 
 {
+	//private static final String String = null;
+	//private static final String Object = null;
 	private static XSSFSheet xlWS;
 	private static XSSFWorkbook xlWB;
 	private static XSSFCell xlCell;
@@ -34,22 +37,56 @@ public class XLUtils
 		}
 	}
 	
-	public static String getCellData(int RowNum, int ColNum, String SheetName) throws Exception
+	public static Object getCellData(int RowNum, int ColNum, String SheetName) throws Exception
 	{		
 		try
 		{
 			xlWS = xlWB.getSheet(SheetName);
 			xlCell = xlWS.getRow(RowNum).getCell(ColNum);
 			//String CellType = xlCell.getCellType().toString();
-			String CellData = xlCell.getStringCellValue().toString();
-			return CellData;
+			/*String stringCellData = xlCell.getStringCellValue();//.toString();
+			XSSFRichTextString blankCellData = xlCell.getRichStringCellValue();
+			boolean boolCellData = xlCell.getBooleanCellValue();
+			String errorCellData = xlCell.getErrorCellString();
+			double numCellData = xlCell.getNumericCellValue();*/
+			
+			Object CellData;
+			String getCellType = xlCell.getCellType().toString();
+			
+			if (getCellType == "BOOLEAN")
+			{
+				CellData = xlCell.getBooleanCellValue();
+				return CellData;
+			}
+			else if (getCellType == "ERROR")
+			{
+				CellData = xlCell.getErrorCellString();
+				return CellData;
+			}
+			else if (getCellType == "NUMERIC")
+			{
+				CellData = xlCell.getNumericCellValue();
+				return CellData;
+			}
+			else if (getCellType == "STRING")
+			{
+				CellData = xlCell.getStringCellValue();
+				return CellData;
+			}
+			else
+			{
+				System.out.println("No cell type found");
+			}
+			
+			//return CellData;
 		}
 		catch (Exception e)
 		{
 			Log.error("Class: XLUtils | Method: getCellData | Exception description: " + e);
 			driverScript.bResult = false;
-			return "ez egy primitív errmsg";
+			//return "ez egy primitív errmsg";
 		}
+		return "";
 	}
 	
 	public static int getRowCount(String SheetName)
@@ -79,7 +116,7 @@ public class XLUtils
 			
 			for (; iRowNum < rowCount; iRowNum++)
 			{
-				if (XLUtils.getCellData(iRowNum, colNum, SheetName).equalsIgnoreCase(sTestCaseName))
+				if (((java.lang.String) XLUtils.getCellData(iRowNum, colNum, SheetName)).equalsIgnoreCase(sTestCaseName))
 				{
 					break;
 				}
@@ -103,7 +140,7 @@ public class XLUtils
 				if (!sTestCaseID.equals(XLUtils.getCellData(i, Constants.Col_TestCaseID, SheetName)))
 				{
 					int number = i;
-					//return number;
+					return number;
 				}
 			}
 		
