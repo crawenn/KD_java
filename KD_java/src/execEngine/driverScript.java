@@ -8,6 +8,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
+//import java.lang.reflect.*;
 import java.util.Properties;
 
 import config.ActionKeywords;
@@ -20,10 +21,10 @@ public class driverScript {
 	private static WebDriver driver = null;
 	
 	public static Properties OR;
-	public static ActionKeywords actionKeywords;
+	public ActionKeywords actionKeywords;
 	public static String sActionKeyword;
 	public static String sPageObject;
-	public static Method method[];
+	public Method[] method1;
 	
 	public static int iTestStep;
 	public static int iTestLastStep;
@@ -36,7 +37,7 @@ public class driverScript {
 	public void DriverScript() throws NoSuchMethodException, SecurityException
 	{
 		actionKeywords = new ActionKeywords();
-		method = actionKeywords.getClass().getMethods();
+		method1 = actionKeywords.getClass().getMethods();
 	}
 
 	public static void main(String[] args) throws Exception
@@ -91,19 +92,19 @@ public class driverScript {
 				{
 					XLUtils.setCellData(Constants.KEYWORD_PASS, iTestCase, Constants.Col_Result, Constants.Sheet_TestCases);
 					Log.endTestCase(sTestCaseID);
-				}				
+				}
 			}
 		}
 	}	
 
-	public static void execute_Actions() throws Exception
+	public void execute_Actions() throws Exception
 	{
-		int mlen = method.length;
+		int mlen = method1.length;
 		for (int i = 0; i < mlen; i++)
 		{
-			if (method[i].getName().equals(sActionKeyword))
+			if (method1[i].getName().equals(sActionKeyword))
 			{
-				method[i].invoke(actionKeywords, sPageObject, sData);
+				method1[i].invoke(actionKeywords, sPageObject, sData);
 				if (bResult == true)
 				{
 					XLUtils.setCellData(Constants.KEYWORD_PASS, iTestStep, Constants.Col_TestStepResult, Constants.Sheet_TestSteps);

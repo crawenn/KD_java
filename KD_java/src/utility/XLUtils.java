@@ -60,7 +60,7 @@ public class XLUtils
 		try
 		{
 		xlWS = xlWB.getSheet(SheetName);
-		iNumber = xlWS.getLastRowNum() + 1;		
+		iNumber = xlWS.getLastRowNum() + 1;
 		}
 		catch (Exception e)
 		{
@@ -70,11 +70,11 @@ public class XLUtils
 		
 		return iNumber;
 	}
-	
+
 	public static int getRowContains(String sTestCaseName, int colNum, String SheetName) throws Exception
 	{
 		int iRowNum = 0;
-		try 
+		try
 		{
 			xlWS = xlWB.getSheet(SheetName);
 			int rowCount = XLUtils.getRowCount(SheetName);
@@ -95,7 +95,7 @@ public class XLUtils
 		
 		return iRowNum;
 	}
-	
+
 	public static int getTestStepsCount(String SheetName, String sTestCaseID, int iTestCaseStart) throws Exception
 	{
 		try
